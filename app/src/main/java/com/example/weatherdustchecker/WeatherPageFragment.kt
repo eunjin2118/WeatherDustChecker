@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
@@ -22,9 +23,13 @@ class WeatherPageFragment : Fragment(){
         // TODO: arguments 값 참조해서 두 개 값 가져오고, 해당하는 뷰에 출력해주기
         val statusText = view.findViewById<TextView>(R.id.weather_status_text)
         val temperatureText = view.findViewById<TextView>(R.id.weather_temp_text)
+        val weatherImage = view.findViewById<ImageView>(R.id.weather_icon)
 
         statusText.text = arguments?.getString("status")
-        temperatureText.text = arguments?.getString("temperature").toString()
+        temperatureText.text = arguments?.getDouble("temperature").toString()
+        // TODO: ImageView 가져와서 sun 이미지 출력하기
+        weatherImage.setImageResource(arguments?.getInt("res_id")!!)
+
 
         return view
     }
@@ -39,6 +44,8 @@ class WeatherPageFragment : Fragment(){
             val args = Bundle()
             args.putString("status", status)
             args.putDouble("temperature", temperature)
+            // 사진 넣어보기
+            args.putInt("res_id", R.drawable.sun)
             fragment.arguments = args
 
             return fragment

@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         // TODO : newInstance클래스 메서드 정의해서 status값(문자열),
         // temperature값(Dobule) 전달할 수 있도록 해주기
         // 해당 값은 모두 프래그먼트의 번들 객체에 저장되어야 함
-        transaction.add(R.id.fragment_container, WeatherPageFragment())
+        transaction.add(R.id.fragment_container,
+            WeatherPageFragment.newIntance("화창", 10.0))
         transaction.commit()
 
 
