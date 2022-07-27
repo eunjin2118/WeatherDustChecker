@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.hide()
+
         // TODO : WeatherPageFragment 표시하기 (FrameLayout에 넣어주기)
         val transaction = supportFragmentManager.beginTransaction()
         // TODO : newInstance클래스 메서드 정의해서 status값(문자열),
