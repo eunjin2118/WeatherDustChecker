@@ -49,6 +49,10 @@ class MyDustDeserializer : StdDeserializer<OpenDustAPIJSONResponse>(
 class DustTestFragment : Fragment(){
     lateinit var dustnumber1: TextView
     lateinit var dustnumber2: TextView
+    lateinit var dust1number1_state: TextView
+    lateinit var dust1number2_state: TextView
+    lateinit var face: ImageView
+
     var TOKEN ="6af6a9d9f6b586e6302950ce5cac2639d22f0b4b"
 
     override fun onCreateView(
@@ -62,6 +66,9 @@ class DustTestFragment : Fragment(){
 
         dustnumber1 = view.findViewById<TextView>(R.id.dust1)
         dustnumber2 = view.findViewById<TextView>(R.id.dust2)
+        dust1number1_state = view.findViewById<TextView>(R.id.dust1_state)
+        dust1number2_state = view.findViewById<TextView>(R.id.dust2_state)
+        face = view.findViewById<ImageView>(R.id.face_icon)
 
         return view
     }
@@ -79,11 +86,31 @@ class DustTestFragment : Fragment(){
 
                 var mapper = jacksonObjectMapper()
 
-                var data1 = mapper?.readValue<OpenDustAPIJSONResponse>(result)
-                dustnumber1.text = data1.pm10.toString()
+                var data = mapper?.readValue<OpenDustAPIJSONResponse>(result)
+                dustnumber1.text = data.pm25.toString()
+                dustnumber2.text = data.pm10.toString()
 
-                var data2 = mapper?.readValue<OpenDustAPIJSONResponse>(result)
-                dustnumber2.text = data2.pm25.toString()
+                if(data.pm10 <= 50) {
+                    dust1number2_state.text = "좋음(미세먼지)"
+                } else if(data.pm10 <= 200){
+                    dust1number2_state.text = "보통(미세먼지)"
+                } else if(data.pm10 <= 300) {
+                    dust1number2_state.text = "나쁨(미세먼지)"
+                } else dust1number2_state.text = "매우나쁨(미세먼지)"
+
+                if(data.pm25 <= 50) {
+                    dust1number1_state.text = "좋음(초미세먼지)"
+                    face.setImageResource(R.drawable.good)
+                } else if(data.pm25 <= 200){
+                    dust1number1_state.text = "보통(초미세먼지)"
+                    face.setImageResource(R.drawable.normal)
+                } else if(data.pm10 <= 300) {
+                    dust1number1_state.text = "나쁨(초미세먼지)"
+                    face.setImageResource(R.drawable.bad)
+                } else{
+                    dust1number1_state.text = "매우나쁨(초미세먼지)"
+                    face.setImageResource(R.drawable.very_bad)
+                }
 
             }
         }).execute(URL(url))
