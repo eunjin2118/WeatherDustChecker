@@ -31,7 +31,6 @@ class MyDustDeserializer : StdDeserializer<OpenDustAPIJSONResponse>(
     ): OpenDustAPIJSONResponse {
 
         val node = p?.codec?.readTree<JsonNode>(p)
-
         var iaqi = node?.get("data")?.get("iaqi")
         var pm10 = iaqi?.get("pm10")?.get("v")?.asInt()
         var pm25 = iaqi?.get("pm25")?.get("v")?.asInt()
