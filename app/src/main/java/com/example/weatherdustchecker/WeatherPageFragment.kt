@@ -139,7 +139,7 @@ class WeatherPageFragment : Fragment(){
     companion object {
         //fun newIntance(status: String, temperature: Double)
         // 요청해서 받아 오는 정보들(위치정보만 있으면 됨)
-        fun newIntance(lat: Double, lon: Double)
+        fun newInstance(lat: Double, lon: Double)
             : WeatherPageFragment
         {
             val fragment = WeatherPageFragment()
